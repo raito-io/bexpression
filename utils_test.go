@@ -1,4 +1,4 @@
-package bepxression
+package bexpression
 
 import (
 	"testing"
