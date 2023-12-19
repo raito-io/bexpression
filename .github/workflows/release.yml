@@ -32,4 +32,12 @@ jobs:
         run: go mod tidy
 
       - name: Test
-        run: make test
+        run: make test-coverage
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.txt
+          override_tag: ${{steps.tag.outputs.tag}}
+          name: "Version ${{steps.tag.outputs.tag}}"
+          version: ${{steps.tag.outputs.tag}}

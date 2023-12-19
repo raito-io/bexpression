@@ -14,7 +14,7 @@ test:
 
 test-coverage:
 	$(gotestsum) --debug --format testname -- -race -mod=readonly -v -coverpkg=./... -covermode=atomic -coverprofile=coverage.txt ./...
-	go tool cover -html=unittest-coverage.txt -o integrationtest-coverage.html
+	go tool cover -html=coverage.txt -o coverage.html
 
 lint:
 	golangci-lint run ./...
