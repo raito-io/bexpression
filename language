@@ -1,0 +1,29 @@
+BinaryExpression:
+    <BooleanLiteral>|<Comparison>|<Aggregator>|<UnaryExpression>
+
+BooleanLiteral:
+    True | False
+
+Comparison:
+    <BinaryOperand> <BinaryOperator> <BinaryOperand>
+
+BinaryOperand:
+    <Reference>|<Literal>
+
+Reference:
+    ENTITYTYPE ENTITYID
+
+Literal:
+    BOOL|INT|FLOAT|STRING|TIMESTAMP
+
+BinaryOperator:
+    Equal | NotEqual | GreaterThan | GreaterThanOrEqual | LessThan | LessThanOrEqual
+
+Aggregator:
+    <AggregatorOperator> [<BinaryExpression>]
+
+AggregatorOperator:
+    And | Or
+
+UnaryExpression:
+    Not <BinaryExpression>
