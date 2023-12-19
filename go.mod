@@ -1,4 +1,4 @@
-module github.com/raito-io/bepxression
+module github.com/raito-io/bexpression
 
 go 1.21
 
