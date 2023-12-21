@@ -61,15 +61,16 @@ type LiteralUnion interface {
 }
 
 type Literal struct {
-	Bool      *bool      `json:"bool,omitempty" yaml:"bool,omitempty" gqlgen:"bool"`
-	Int       *int       `json:"int,omitempty" yaml:"int,omitempty" gqlgen:"int"`
-	Float     *float64   `json:"float,omitempty" yaml:"float,omitempty" gqlgen:"float"`
-	Str       *string    `json:"string,omitempty" yaml:"string,omitempty" gqlgen:"string"`
-	Timestamp *time.Time `json:"timestamp,omitempty" yaml:"timestamp,omitempty" gqlgen:"timestamp"`
+	Bool       *bool      `json:"bool,omitempty" yaml:"bool,omitempty" gqlgen:"bool"`
+	Int        *int       `json:"int,omitempty" yaml:"int,omitempty" gqlgen:"int"`
+	Float      *float64   `json:"float,omitempty" yaml:"float,omitempty" gqlgen:"float"`
+	String     *string    `json:"string,omitempty" yaml:"string,omitempty" gqlgen:"string"`
+	Timestamp  *time.Time `json:"timestamp,omitempty" yaml:"timestamp,omitempty" gqlgen:"timestamp"`
+	StringList []string   `json:"stringList,omitempty" yaml:"stringList,omitempty" gqlgen:"stringList"`
 }
 
 func (l *Literal) Validate() error {
-	if countNonNil(l.Bool, l.Int, l.Float, l.Str, l.Timestamp) != 1 {
+	if countNonNil(l.Bool, l.Int, l.Float, l.String, l.Timestamp, l.StringList) != 1 {
 		return errors.New("exactly one of literal value must be set")
 	}
 
@@ -83,8 +84,10 @@ func (l *Literal) ToGql() (LiteralUnion, error) {
 		return &LiteralInt{Value: *l.Int}, nil
 	} else if l.Float != nil {
 		return &LiteralFloat{Value: *l.Float}, nil
-	} else if l.Str != nil {
-		return &LiteralString{Value: *l.Str}, nil
+	} else if l.String != nil {
+		return &LiteralString{Value: *l.String}, nil
+	} else if l.StringList != nil {
+		return &LiteralStringList{Value: l.StringList}, nil
 	} else if l.Timestamp != nil {
 		return &LiteralTimestamp{Value: *l.Timestamp}, nil
 	}
@@ -120,6 +123,13 @@ type LiteralString struct {
 
 func (l *LiteralString) isLiteral() {}
 func (l *LiteralString) isOperand() {}
+
+type LiteralStringList struct {
+	Value []string
+}
+
+func (l *LiteralStringList) isLiteral() {}
+func (l *LiteralStringList) isOperand() {}
 
 type LiteralTimestamp struct {
 	Value time.Time
@@ -240,6 +250,8 @@ const (
 	ComparisonOperatorLessThanOrEqual
 	ComparisonOperatorGreaterThan
 	ComparisonOperatorGreaterThanOrEqual
+	ComparisonOperatorHas
+	ComparisonOperatorContains
 )
 
 //go:generate go run github.com/raito-io/enumer -type=AggregatorOperator -values -gqlgen -yaml -json -trimprefix=AggregatorOperator

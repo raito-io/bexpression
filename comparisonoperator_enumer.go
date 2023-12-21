@@ -10,11 +10,11 @@ import (
 	"strings"
 )
 
-const _ComparisonOperatorName = "EqualNotEqualLessThanLessThanOrEqualGreaterThanGreaterThanOrEqual"
+const _ComparisonOperatorName = "EqualNotEqualLessThanLessThanOrEqualGreaterThanGreaterThanOrEqualHasContains"
 
-var _ComparisonOperatorIndex = [...]uint8{0, 5, 13, 21, 36, 47, 65}
+var _ComparisonOperatorIndex = [...]uint8{0, 5, 13, 21, 36, 47, 65, 68, 76}
 
-const _ComparisonOperatorLowerName = "equalnotequallessthanlessthanorequalgreaterthangreaterthanorequal"
+const _ComparisonOperatorLowerName = "equalnotequallessthanlessthanorequalgreaterthangreaterthanorequalhascontains"
 
 func (i ComparisonOperator) String() string {
 	if i < 0 || i >= ComparisonOperator(len(_ComparisonOperatorIndex)-1) {
@@ -37,9 +37,11 @@ func _ComparisonOperatorNoOp() {
 	_ = x[ComparisonOperatorLessThanOrEqual-(3)]
 	_ = x[ComparisonOperatorGreaterThan-(4)]
 	_ = x[ComparisonOperatorGreaterThanOrEqual-(5)]
+	_ = x[ComparisonOperatorHas-(6)]
+	_ = x[ComparisonOperatorContains-(7)]
 }
 
-var _ComparisonOperatorValues = []ComparisonOperator{ComparisonOperatorEqual, ComparisonOperatorNotEqual, ComparisonOperatorLessThan, ComparisonOperatorLessThanOrEqual, ComparisonOperatorGreaterThan, ComparisonOperatorGreaterThanOrEqual}
+var _ComparisonOperatorValues = []ComparisonOperator{ComparisonOperatorEqual, ComparisonOperatorNotEqual, ComparisonOperatorLessThan, ComparisonOperatorLessThanOrEqual, ComparisonOperatorGreaterThan, ComparisonOperatorGreaterThanOrEqual, ComparisonOperatorHas, ComparisonOperatorContains}
 
 var _ComparisonOperatorNameToValueMap = map[string]ComparisonOperator{
 	_ComparisonOperatorName[0:5]:        ComparisonOperatorEqual,
@@ -54,6 +56,10 @@ var _ComparisonOperatorNameToValueMap = map[string]ComparisonOperator{
 	_ComparisonOperatorLowerName[36:47]: ComparisonOperatorGreaterThan,
 	_ComparisonOperatorName[47:65]:      ComparisonOperatorGreaterThanOrEqual,
 	_ComparisonOperatorLowerName[47:65]: ComparisonOperatorGreaterThanOrEqual,
+	_ComparisonOperatorName[65:68]:      ComparisonOperatorHas,
+	_ComparisonOperatorLowerName[65:68]: ComparisonOperatorHas,
+	_ComparisonOperatorName[68:76]:      ComparisonOperatorContains,
+	_ComparisonOperatorLowerName[68:76]: ComparisonOperatorContains,
 }
 
 var _ComparisonOperatorNames = []string{
@@ -63,6 +69,8 @@ var _ComparisonOperatorNames = []string{
 	_ComparisonOperatorName[21:36],
 	_ComparisonOperatorName[36:47],
 	_ComparisonOperatorName[47:65],
+	_ComparisonOperatorName[65:68],
+	_ComparisonOperatorName[68:76],
 }
 
 // ComparisonOperatorString retrieves an enum value from the enum constants string name.

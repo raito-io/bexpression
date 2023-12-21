@@ -14,10 +14,10 @@ Reference:
     ENTITYTYPE ENTITYID
 
 Literal:
-    BOOL|INT|FLOAT|STRING|TIMESTAMP
+    BOOL|INT|FLOAT|STRING|TIMESTAMP|STRINGLIST
 
 BinaryOperator:
-    Equal | NotEqual | GreaterThan | GreaterThanOrEqual | LessThan | LessThanOrEqual
+    Equal | NotEqual | GreaterThan | GreaterThanOrEqual | LessThan | LessThanOrEqual | Has | Contains
 
 Aggregator:
     <AggregatorOperator> [<BinaryExpression>]

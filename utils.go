@@ -51,6 +51,11 @@ func BinaryExpressionDebugString(b *BinaryExpression) (string, error) {
 
 			return err
 		}),
+		WithLiteralStringListFn(func(value []string) error {
+			_, err := sb.WriteString(fmt.Sprintf("%+v", value))
+
+			return err
+		}),
 		WithLiteralTimestampFn(func(value time.Time) error {
 			_, err := sb.WriteString(value.String())
 

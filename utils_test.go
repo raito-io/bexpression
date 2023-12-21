@@ -107,7 +107,7 @@ func TestBinaryExpressionDebugString(t *testing.T) {
 
 									Operator: UnaryOperatorNot,
 									Operand: BinaryExpression{
-										Comparison: &BinaryComparison{LeftOperand: Operand{Reference: &Reference{EntityId: "Id1", EntityType: EntityTypeDataObject}}, Operator: ComparisonOperatorNotEqual, RightOperand: Operand{Literal: &Literal{Str: ptr.String("NJ")}}},
+										Comparison: &BinaryComparison{LeftOperand: Operand{Reference: &Reference{EntityId: "Id1", EntityType: EntityTypeDataObject}}, Operator: ComparisonOperatorNotEqual, RightOperand: Operand{Literal: &Literal{String: ptr.String("NJ")}}},
 									},
 								},
 							},

@@ -8,11 +8,12 @@ type traverseOptions struct {
 	EnterBinaryExpressionFn func(node *BinaryExpression) error
 	LeaveBinaryExpressionFn func(node *BinaryExpression)
 
-	LiteralBoolFn      func(value bool) error
-	LiteralIntFn       func(value int) error
-	LiteralFloatFn     func(value float64) error
-	LiteralStringFn    func(value string) error
-	LiteralTimestampFn func(value time.Time) error
+	LiteralBoolFn       func(value bool) error
+	LiteralIntFn        func(value int) error
+	LiteralFloatFn      func(value float64) error
+	LiteralStringFn     func(value string) error
+	LiteralStringListFn func(value []string) error
+	LiteralTimestampFn  func(value time.Time) error
 
 	EnterComparisonFn    func(node *BinaryComparison) error
 	ComparisonOperatorFn func(node ComparisonOperator) error
@@ -64,6 +65,12 @@ func WithLiteralFloatFn(fn func(value float64) error) func(o *traverseOptions) {
 func WithLiteralStringFn(fn func(value string) error) func(o *traverseOptions) {
 	return func(o *traverseOptions) {
 		o.LiteralStringFn = fn
+	}
+}
+
+func WithLiteralStringListFn(fn func(value []string) error) func(o *traverseOptions) {
+	return func(o *traverseOptions) {
+		o.LiteralStringListFn = fn
 	}
 }
 
@@ -151,6 +158,7 @@ func NewTraverser(opts ...func(*traverseOptions)) *Traverser {
 		LiteralIntFn:            func(value int) error { return nil },
 		LiteralFloatFn:          func(value float64) error { return nil },
 		LiteralStringFn:         func(value string) error { return nil },
+		LiteralStringListFn:     func(value []string) error { return nil },
 		LiteralTimestampFn:      func(value time.Time) error { return nil },
 		EnterComparisonFn:       func(node *BinaryComparison) error { return nil },
 		ComparisonOperatorFn:    func(node ComparisonOperator) error { return nil },
@@ -248,8 +256,10 @@ func (t *Traverser) TraverseLiteral(literal *Literal) error {
 		return t.funcs.LiteralFloatFn(*literal.Float)
 	} else if literal.Timestamp != nil {
 		return t.funcs.LiteralTimestampFn(*literal.Timestamp)
-	} else if literal.Str != nil {
-		return t.funcs.LiteralStringFn(*literal.Str)
+	} else if literal.String != nil {
+		return t.funcs.LiteralStringFn(*literal.String)
+	} else if literal.StringList != nil {
+		return t.funcs.LiteralStringListFn(literal.StringList)
 	}
 
 	return nil
