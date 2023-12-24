@@ -1,4 +1,4 @@
-package data_comparison
+package datacomparison
 
 import (
 	"context"
@@ -16,7 +16,7 @@ const (
 
 type Reference struct {
 	EntityType EntityType `json:"entityType,omitempty" yaml:"entityType,omitempty" gqlgen:"entityType"`
-	EntityId   string     `json:"entityId,omitempty" yaml:"entityId,omitempty" gqlgen:"entityId"`
+	EntityID   string     `json:"entityId,omitempty" yaml:"entityId,omitempty" gqlgen:"entityId"`
 }
 
 func (r *Reference) Validate(_ context.Context) error {

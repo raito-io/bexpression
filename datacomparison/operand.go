@@ -1,4 +1,4 @@
-package data_comparison
+package datacomparison
 
 import (
 	"context"

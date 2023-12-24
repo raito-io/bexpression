@@ -40,13 +40,6 @@ linters-settings:
     require-explanation: false
     require-specific: false
 
-  gosec:
-    excludes:
-      - G404 # To be checked: Insecure random number source (rand)
-
-  stylecheck:
-    checks: [ "all", "-ST1003"] # ST1003: No underscores in package names should be fixed and removed?
-
   predeclared:
     ignore: "error"
 

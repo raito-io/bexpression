@@ -1,4 +1,4 @@
-package data_comparison
+package datacomparison
 
 type DataComparisonOperand interface {
 	IsDataComparisonOperand()

@@ -2,7 +2,7 @@ package bexpression
 
 import (
 	"github.com/raito-io/bexpression/base"
-	"github.com/raito-io/bexpression/data_comparison"
+	"github.com/raito-io/bexpression/datacomparison"
 )
 
-type DataComparisonExpression = base.BinaryExpression[*data_comparison.DataComparison]
+type DataComparisonExpression = base.BinaryExpression[*datacomparison.DataComparison]
