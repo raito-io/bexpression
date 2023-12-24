@@ -2,10 +2,7 @@ module github.com/raito-io/bexpression
 
 go 1.21
 
-require (
-	github.com/aws/smithy-go v1.19.0
-	github.com/raito-io/enumer v0.1.3
-)
+require github.com/raito-io/enumer v0.1.3
 
 require (
 	github.com/pascaldekloe/name v1.0.1 // indirect
