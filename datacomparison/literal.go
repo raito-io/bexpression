@@ -19,7 +19,7 @@ type Literal struct {
 	Timestamp *time.Time `json:"timestamp,omitempty" yaml:"timestamp,omitempty" gqlgen:"timestamp"`
 }
 
-func (l *Literal) Validate(ctx context.Context) error {
+func (l *Literal) Validate(_ context.Context) error {
 	if utils.CountNonNil(l.Bool, l.Int, l.Float, l.Str, l.Timestamp) != 1 {
 		return LiteralUnionErr
 	}
@@ -28,43 +28,36 @@ func (l *Literal) Validate(ctx context.Context) error {
 }
 
 func (l *Literal) Accept(ctx context.Context, visitor base.Visitor) error {
-	err := visitor.EnterExpressionElement(ctx, l)
-	if err != nil {
-		return fmt.Errorf("enter literal: %w", err)
-	}
-
-	defer visitor.LeaveExpressionElement(ctx, l)
-
 	if l.Bool != nil {
-		err = visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "bool", l), *l.Bool)
+		err := visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "bool", l), *l.Bool)
 		if err != nil {
 			return fmt.Errorf("bool: %w", err)
 		}
 
 		return nil
 	} else if l.Int != nil {
-		err = visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "int", l), *l.Int)
+		err := visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "int", l), *l.Int)
 		if err != nil {
 			return fmt.Errorf("int: %w", err)
 		}
 
 		return nil
 	} else if l.Float != nil {
-		err = visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "float", l), *l.Float)
+		err := visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "float", l), *l.Float)
 		if err != nil {
 			return fmt.Errorf("float: %w", err)
 		}
 
 		return nil
 	} else if l.Str != nil {
-		err = visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "string", l), *l.Str)
+		err := visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "string", l), *l.Str)
 		if err != nil {
 			return fmt.Errorf("string: %w", err)
 		}
 
 		return nil
 	} else if l.Timestamp != nil {
-		err = visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "timestamp", l), *l.Timestamp)
+		err := visitor.Literal(base.CtxExtendPathAndSetElement(ctx, "timestamp", l), *l.Timestamp)
 		if err != nil {
 			return fmt.Errorf("timestamp: %w", err)
 		}

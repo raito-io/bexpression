@@ -19,8 +19,6 @@ type BinaryExpression[T Comparison] struct {
 	UnaryExpression *UnaryExpression[T] `json:"unaryExpression,omitempty" yaml:"unaryExpression,omitempty" gqlgen:"unaryExpression"`
 }
 
-func (b *BinaryExpression[T]) IsVisitableElement() {}
-
 func (b *BinaryExpression[T]) Validate(ctx context.Context) error {
 	if utils.CountNonNil(b.Literal, b.Comparison, b.Aggregator, b.UnaryExpression) != 1 {
 		return BinaryExpressionUnionError

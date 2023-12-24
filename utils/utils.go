@@ -18,6 +18,15 @@ func CountNonNil(values ...interface{}) int {
 }
 
 func IsNull(value interface{}) bool {
+	if value == nil {
+		return true
+	}
+
+	// typed nil interfaces
 	v := reflect.ValueOf(value)
 	return v.Kind() == reflect.Ptr && v.IsNil()
+}
+
+func Ptr[T any](value T) *T {
+	return &value
 }
