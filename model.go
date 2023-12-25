@@ -6,3 +6,5 @@ import (
 )
 
 type DataComparisonExpression = base.BinaryExpression[*datacomparison.DataComparison]
+type DataComparisonAggregator = base.Aggregator[*datacomparison.DataComparison]
+type DataComparisonUnaryExpression = base.UnaryExpression[*datacomparison.DataComparison]
