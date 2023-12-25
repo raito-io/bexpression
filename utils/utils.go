@@ -24,6 +24,7 @@ func IsNull(value interface{}) bool {
 
 	// typed nil interfaces
 	v := reflect.ValueOf(value)
+
 	return v.Kind() == reflect.Ptr && v.IsNil()
 }
 

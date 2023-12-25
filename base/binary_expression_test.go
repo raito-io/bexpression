@@ -148,7 +148,7 @@ func TestBinaryExpression_Validate(t *testing.T) {
 	}
 }
 
-func TestBinaryExpression_Accept(t *testing.T){
+func TestBinaryExpression_Accept(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
