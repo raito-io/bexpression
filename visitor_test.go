@@ -13,7 +13,6 @@ import (
 )
 
 func TestFunctionVisitor(t *testing.T) {
-	// Given
 	expr := DataComparisonExpression{
 		Comparison: &datacomparison.DataComparison{
 			Operator: datacomparison.ComparisonOperatorGreaterThan,
@@ -31,37 +30,51 @@ func TestFunctionVisitor(t *testing.T) {
 		},
 	}
 
-	var enterElements []base.VisitableElement
-	var leaveElements []base.VisitableElement
-	var literals []interface{}
+	t.Run("Fully initialized visitor", func(t *testing.T) {
+		// Given
+		var enterElements []base.VisitableElement
+		var leaveElements []base.VisitableElement
+		var literals []interface{}
 
-	visitor := NewFunctionVisitor(WithEnterExpressionElementFn(func(ctx context.Context, element base.VisitableElement) error {
-		enterElements = append(enterElements, element)
+		visitor := NewFunctionVisitor(WithEnterExpressionElementFn(func(ctx context.Context, element base.VisitableElement) error {
+			enterElements = append(enterElements, element)
 
-		return nil
-	}), WithLeaveExpressionElementFn(func(ctx context.Context, element base.VisitableElement) {
-		leaveElements = append(leaveElements, element)
-	}), WithLiteralFn(func(ctx context.Context, literal interface{}) error {
-		literals = append(literals, literal)
+			return nil
+		}), WithLeaveExpressionElementFn(func(ctx context.Context, element base.VisitableElement) {
+			leaveElements = append(leaveElements, element)
+		}), WithLiteralFn(func(ctx context.Context, literal interface{}) error {
+			literals = append(literals, literal)
 
-		return nil
-	}))
+			return nil
+		}))
 
-	// When
-	err := expr.Accept(context.Background(), visitor)
+		// When
+		err := expr.Accept(context.Background(), visitor)
 
-	// Then
-	require.NoError(t, err)
+		// Then
+		require.NoError(t, err)
 
-	assert.Equal(t, []base.VisitableElement{
-		&expr, expr.Comparison, &expr.Comparison.LeftOperand, &expr.Comparison.RightOperand,
-	}, enterElements)
+		assert.Equal(t, []base.VisitableElement{
+			&expr, expr.Comparison, &expr.Comparison.LeftOperand, &expr.Comparison.RightOperand,
+		}, enterElements)
 
-	assert.Equal(t, []base.VisitableElement{
-		&expr.Comparison.LeftOperand, &expr.Comparison.RightOperand, expr.Comparison, &expr,
-	}, leaveElements)
+		assert.Equal(t, []base.VisitableElement{
+			&expr.Comparison.LeftOperand, &expr.Comparison.RightOperand, expr.Comparison, &expr,
+		}, leaveElements)
 
-	assert.Equal(t, []interface{}{
-		expr.Comparison.LeftOperand.Reference, datacomparison.ComparisonOperatorGreaterThan, float64(3.14),
-	}, literals)
+		assert.Equal(t, []interface{}{
+			expr.Comparison.LeftOperand.Reference, datacomparison.ComparisonOperatorGreaterThan, float64(3.14),
+		}, literals)
+	})
+
+	t.Run("Empty visitor", func(t *testing.T) {
+		// Given
+		visitor := NewFunctionVisitor()
+
+		// When
+		err := expr.Accept(context.Background(), visitor)
+
+		// Then
+		require.NoError(t, err)
+	})
 }
