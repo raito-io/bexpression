@@ -1,4 +1,4 @@
-name: Raito CLI - GCP Plugin - Build
+name: Raito - BExpression library - Build
 on:
   push:
     branches:
