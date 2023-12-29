@@ -10,11 +10,11 @@ import (
 	"strings"
 )
 
-const _EntityTypeName = "DataObject"
+const _EntityTypeName = "DataObjectColumnReferenceByName"
 
-var _EntityTypeIndex = [...]uint8{0, 10}
+var _EntityTypeIndex = [...]uint8{0, 10, 31}
 
-const _EntityTypeLowerName = "dataobject"
+const _EntityTypeLowerName = "dataobjectcolumnreferencebyname"
 
 func (i EntityType) String() string {
 	if i < 0 || i >= EntityType(len(_EntityTypeIndex)-1) {
@@ -32,17 +32,21 @@ func (EntityType) Values() []string {
 func _EntityTypeNoOp() {
 	var x [1]struct{}
 	_ = x[EntityTypeDataObject-(0)]
+	_ = x[EntityTypeColumnReferenceByName-(1)]
 }
 
-var _EntityTypeValues = []EntityType{EntityTypeDataObject}
+var _EntityTypeValues = []EntityType{EntityTypeDataObject, EntityTypeColumnReferenceByName}
 
 var _EntityTypeNameToValueMap = map[string]EntityType{
-	_EntityTypeName[0:10]:      EntityTypeDataObject,
-	_EntityTypeLowerName[0:10]: EntityTypeDataObject,
+	_EntityTypeName[0:10]:       EntityTypeDataObject,
+	_EntityTypeLowerName[0:10]:  EntityTypeDataObject,
+	_EntityTypeName[10:31]:      EntityTypeColumnReferenceByName,
+	_EntityTypeLowerName[10:31]: EntityTypeColumnReferenceByName,
 }
 
 var _EntityTypeNames = []string{
 	_EntityTypeName[0:10],
+	_EntityTypeName[10:31],
 }
 
 // EntityTypeString retrieves an enum value from the enum constants string name.

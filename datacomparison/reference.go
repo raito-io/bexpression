@@ -12,6 +12,7 @@ type EntityType int
 
 const (
 	EntityTypeDataObject EntityType = iota
+	EntityTypeColumnReferenceByName
 )
 
 type Reference struct {
