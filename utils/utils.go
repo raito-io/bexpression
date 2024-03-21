@@ -1,6 +1,8 @@
 package utils
 
-import "reflect"
+import (
+	"reflect"
+)
 
 func CountNonNil(values ...interface{}) int {
 	r := 0
@@ -25,7 +27,7 @@ func IsNull(value interface{}) bool {
 	// typed nil interfaces
 	v := reflect.ValueOf(value)
 
-	return v.Kind() == reflect.Ptr && v.IsNil()
+	return (v.Kind() == reflect.Ptr || v.Kind() == reflect.Slice) && v.IsNil()
 }
 
 func Ptr[T any](value T) *T {
