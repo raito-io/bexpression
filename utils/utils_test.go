@@ -38,7 +38,7 @@ func TestCountNonNil(t *testing.T) {
 		{
 			name: "all nil",
 			args: args{
-				values: []interface{}{nil, nil, nil},
+				values: []interface{}{nil, []string(nil), nil},
 			},
 			want: 0,
 		},
